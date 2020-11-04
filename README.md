@@ -2,7 +2,7 @@
 
 ## Introduction
 AWS의 AI 서비스들을 활용한 얼굴인식 기반 출결관리 서비스 입니다.  
-RaspberryPi 혹은 Linux 시스템에서 음성, 이미지, 체온정보를 입력받고 수강생 등록/출석/퇴실 절차를 진행할 수 있습니다.  
+RaspberryPi 혹은 Linux 시스템에서 음    성, 이미지, 체온정보를 입력받고 수강생 등록/출석/퇴실 절차를 진행할 수 있습니다.  
 >본 서비스는 기본적으로 음성, 이미지로 일련의 절차를 진행합니다.  
 체온정보 처리를 위해선 온도센서가 포함된 RaspberyPi가 필요합니다.  
 하드웨어에 대한 세부정보는 Getting Started 항목의 Prerequisites에서 확인하실 수 있습니다.
@@ -148,10 +148,10 @@ Mysql 혹은 MariaDB를 사용하여 데이터베이스를 구축할 필요가 �
 데이터베이스 구축을 마치고 Python 라이브러리를 이용하여 데이터베이스 접근하기 위해 다음과 같은 정보를 메모해둡니다.
 <pre>
 <code>
-1. Database 엔드포인트(URL 혹은 IP Address)
-2. Database Port번호
-3. Database 유저 ID 및 PW
-4. 생성한 Database 이름
+* Database 엔드포인트(URL 혹은 IP Address)
+* Database Port번호
+* Database 유저 ID 및 PW
+* 생성한 Database 이름
 </code>
 </pre>
 
@@ -193,13 +193,21 @@ Check-in-out: image-bucket에 업로드된 이미지를 rekognition을 이용하
 
 * STT
 1. AWS 콘솔에서 AWS Lambda를 선택합니다.
+
 2. 좌측 메뉴에서 함수를 클릭하고 함수 생성버튼을 클릭합니다.
+
 3. 새로 작성 탭을 클릭하고 함수 이름을 지정합니다. 런타임은 Python 3.8을 선택합니다. 
+
 4. 권한 탭에서 "기본 Lambda 권한을 가진 새 역할 생성"을 선택합니다. 화면에 표기되는 IAM 역할 이름을 기록해둡니다.
+
 5. 우측 하단의 "함수 생성" 버튼을 클릭합니다.
+
 6. 생성된 IAM 역할에 더 많은 정책을 연결하기 위해 IAM 서비스에 접속합니다.
+
 7. 좌측의 정책 탭을 클릭하고 Lambda와 연결된 역할을 클릭합니다.
+
 8. 권한 탭에서 "인라인 정책 추가" 버튼을 클릭합니다.
+
 9. JSON 탭을 클릭합니다. 그리고 하기의 JSON코드를 입력하고 "정책 검토" 버튼을 클릭합니다.
 <pre>
 <code>
@@ -228,28 +236,47 @@ Check-in-out: image-bucket에 업로드된 이미지를 rekognition을 이용하
 </pre>
 
 10. 임의의 정책 이름을 입력하고 정책 생성버튼을 클릭합니다.
+
 11. 다시 Lambda 서비스로 접속하여 생성된 Lambda function을 선택합니다.
+
 12. 디자이너 항목에서 "트리거 추가" 버튼을 클릭합니다.
+
 13. "트리거 선택"을 클릭하고 S3를 선택합니다.
+
 14. 버킷 항목에서 이전에 생성한 **Voice 전용 버킷**을 선택합니다.
+
 15. 다른 부분은 공란으로 둡니다.
+
 16. 하단에 재귀 호출과 관련된 경고창이 존재하며, 해당 내용을 인지하고 있음을 체크합니다.
+
 17. "추가" 버튼을 클릭합니다.
+
 18. 트리거가 추가되면 function 화면으로 전환되며, 스크롤을 아래로 움직여 "function code" 항목으로 이동합니다.
+
 19. 우측 상단의 "작업"버튼을 클릭하고 ".zip파일 업로드"를 선택합니다.
+
 20. "업로드" 버튼을 클릭하고 .student_attandance/linux(혹은 raspberrypi)/lambda_functions/stt/lambda_function.zip 을 선택합니다. 그리고 "저장" 버튼을 클릭합니다.
+
 21. 코드가 업데이트된 모습을 확인할 수 있습니다. 
 
 * Check-in_out
 
 1. AWS 콘솔에서 AWS Lambda를 선택합니다.
+
 2. 좌측 메뉴에서 함수를 클릭하고 함수 생성버튼을 클릭합니다.
+
 3. 새로 작성 탭을 클릭하고 함수 이름을 지정합니다. 런타임은 Python 3.8을 선택합니다. 
+
 4. 권한 탭에서 "기본 Lambda 권한을 가진 새 역할 생성"을 선택합니다. 화면에 표기되는 IAM 역할 이름을 기록해둡니다.
+
 5. 우측 하단의 "함수 생성" 버튼을 클릭합니다.
+
 6. 생성된 IAM 역할에 더 많은 정책을 연결하기 위해 IAM 서비스에 접속합니다.
+
 7. 좌측의 정책 탭을 클릭하고 Lambda와 연결된 역할을 클릭합니다.
+
 8. 권한 탭에서 "인라인 정책 추가" 버튼을 클릭합니다.
+
 9. JSON 탭을 클릭합니다. 그리고 하기의 JSON코드를 입력하고 "정책 검토" 버튼을 클릭합니다.
 <pre>
 <code>
@@ -309,10 +336,11 @@ Check-in-out: image-bucket에 업로드된 이미지를 rekognition을 이용하
 20. 본인의 시스템 환경에 따라하기의 파일을 업로드합니다.  
 <pre>
 <code>
-웹캠과 마이크가 구비된 Linux 시스템  
- student_attandance/linux/lambda_functions/check-in-out/lambda_function.zip  
-카메라 모듈, 마이크, 온도센서가 구비된 RaspberryPi  
- student_attandance/raspberrypi/lambda_functions/check-in-out/lambda_function.zip
+* 웹캠과 마이크가 구비된 Linux 시스템  
+student_attandance/linux/lambda_functions/check-in-out/lambda_function.zip  
+
+* 카메라 모듈, 마이크, 온도센서가 구비된 RaspberryPi  
+student_attandance/raspberrypi/lambda_functions/check-in-out/lambda_function.zip
 </code>
 </pre>
 21. "저장" 버튼을 클릭하면 코드가 업데이트된 모습을 확인할 수 있습니다. 
