@@ -181,9 +181,13 @@ $ aws s3 mb s3://<생성할 버켓명>
 
 **Lambda**  
 서비스에 필요한 Lambda function을 생성합니다. 필요한 Lambda function의 종류와 용도는 다음과 같습니다.
+<pre>
+<code>
+STT: sound-bucket에 업로드된 음성을 transcribe를 이용하여 텍스트로 변환합니다.
 
-* STT: sound-bucket에 업로드된 음성을 transcribe를 이용하여 텍스트로 변환합니다.
-* Check-in-out: image-bucket에 업로드된 이미지를 rekognition을 이용하여 분석합니다.  그리고 필요한 정보를 Database에 입력하고 수강생에게 들려줄 메세지를 polly를 이용하여 TTS합니다.
+Check-in-out: image-bucket에 업로드된 이미지를 rekognition을 이용하여 분석합니다.  그리고 필요한 정보를 Database에 입력하고 수강생에게 들려줄 메세지를 polly를 이용하여 TTS합니다.
+</code>
+</pre>
 
 기능별 Lambda function을 생성하는 방법은 다음과 같습니다.  
 
@@ -283,20 +287,34 @@ $ aws s3 mb s3://<생성할 버켓명>
 </code>
 </pre>
 10. 임의의 정책 이름을 입력하고 정책 생성버튼을 클릭합니다.
+
 11. 다시 Lambda 서비스로 접속하여 생성된 Lambda function을 선택합니다.
+
 12. 디자이너 항목에서 "트리거 추가" 버튼을 클릭합니다.
+
 13. "트리거 선택"을 클릭하고 S3를 선택합니다.
+
 14. 버킷 항목에서 이전에 생성한 **Image 전용 버킷**을 선택합니다.
+
 15. 다른 부분은 공란으로 둡니다.
+
 16. 하단에 재귀 호출과 관련된 경고창이 존재하며, 해당 내용을 인지하고 있음을 체크합니다.
+
 17. "추가" 버튼을 클릭합니다.
+
 18. 트리거가 추가되면 function 화면으로 전환되며, 스크롤을 아래로 움직여 "function code" 항목으로 이동합니다.
+
 19. 우측 상단의 "작업"버튼을 클릭하고 ".zip파일 업로드"를 선택합니다.
-20. 본인의 시스템 환경에 따라 하기의 파일을 업로드합니다.  
-* 웹캠과 마이크가 구비된 Linux 시스템  
+
+20. 본인의 시스템 환경에 따라하기의 파일을 업로드합니다.  
+<pre>
+<code>
+웹캠과 마이크가 구비된 Linux 시스템  
  student_attandance/linux/lambda_functions/check-in-out/lambda_function.zip  
-* 카메라 모듈, 마이크, 온도센서가 구비된 RaspberryPi  
+카메라 모듈, 마이크, 온도센서가 구비된 RaspberryPi  
  student_attandance/raspberrypi/lambda_functions/check-in-out/lambda_function.zip
+</code>
+</pre>
 21. "저장" 버튼을 클릭하면 코드가 업데이트된 모습을 확인할 수 있습니다. 
 
 22. 업데이트된 코드에서 13번~23번 항목을 자신의 환경에 맞게 수정합니다.
@@ -319,13 +337,21 @@ $ aws s3 mb s3://<생성할 버켓명>
 23. 코드를 수정한 뒤 우측 상단의 "Deploy" 버튼을 클릭하여 배포합니다.
 
 24. Lambda 서비스메뉴 좌측 "Additional resources" 항목의 "계층" 항목을 클릭합니다.
+
 25. 현재 생성된 계층의 리스트가 표시됩니다. 우측 상단의 "계층 생성" 버튼을 클릭합니다.
+
 26. 임의의 계층 이름을 입력합니다.
+
 27. ".zip파일로 업로드"를 선택하고 업로드 버튼을 클릭합니다.
+
 28. 다음 경로의 zip파일을 업로드합니다.  student_attandance/linux(혹은 raspberrypi)/lambda_functions/check-in-out/layer.zip
+
 29. 우측 하단의 "생성" 버튼을 클릭합니다.
+
 30. 새로운 계층이 생성됬음을 확인할 수 있습니다. 다시 check-in-out function으로 돌아갑니다.
+
 31. 디자이너 항목에서 중앙의 "Layers"를 선택하고 [Add a layer] 버튼을 클릭합니다.
+
 32. "사용자 지정 계층"을 클릭하고 이전에 생성한 계층을 선택합니다. 그리고 "추가" 버튼을 클릭합니다.
 
 ## How to use service
